@@ -1,0 +1,33 @@
+.main-container{
+    height: 100vh;
+    width: 100vw;
+    &-background{
+        height: 50vh;
+        background-size: cover;
+        background-position: center;
+        background-image: url('../../assets/background.jpg');
+    }
+    &-form{   
+        width: 80vw;
+        margin: 0 auto;
+        &-title{
+            text-align: center
+        }
+        &-first-row, &-second-row{
+            mat-form-field{
+                width: 45%;
+                margin-right: 5%;
+            }
+        }
+        &-third-row{
+            mat-checkbox,button{
+                display: block;
+                text-align: center;
+                margin: 15px;
+            }
+            button{
+                margin: 0 auto;
+            }
+        }
+    }
+}
