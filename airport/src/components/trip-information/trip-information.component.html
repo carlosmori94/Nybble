@@ -1,36 +1,37 @@
 <div class="main-container">
   <div class="main-container-background">
   </div>
-  <div class="main-container-form">
+  <form [formGroup]="profileForm" class="main-container-form" (ngSubmit)="excecuteAction(action)">
     <div class="main-container-form-title">
       <h2>Enter your trip information</h2>
     </div>
     <div class="main-container-form-first-row">
       <mat-form-field>
-        <input matInput placeholder="Reservation number">
+        <input formControlName="resevationNumber" matInput [readonly]="readonly" placeholder="Reservation number">
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Last name on Reservation">
+        <input formControlName="lastNameReservation"  matInput [readonly]="readonly" placeholder="Last name on Reservation">
       </mat-form-field>
     </div>
     <div class="main-container-form-second-row">
       <mat-form-field>
         <mat-label>Ship</mat-label>
-        <mat-select>
+        <mat-select formControlName="ship" [disabled]="readonly">
           <mat-option *ngFor="let food of foods" [value]="food.value">
             {{food.viewValue}}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+        <input formControlName="date" matInput [readonly]="readonly" [matDatepicker]="picker" placeholder="Choose a date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
     </div>
     <div class="main-container-form-third-row">
-      <mat-checkbox class="example-margin" [(ngModel)]="checked">Remember my information</mat-checkbox>
-      <button mat-raised-button color="primary">FIND MY RESERVATION</button>
+      <mat-checkbox formControlName="rememberMe" class="example-margin" [disabled]="readonly">Remember my information
+      </mat-checkbox>
+      <button type="submit" [disabled]="!profileForm.valid" mat-raised-button color="primary">{{action | uppercase}}</button>
     </div>
-  </div>
+  </form>
 </div>
