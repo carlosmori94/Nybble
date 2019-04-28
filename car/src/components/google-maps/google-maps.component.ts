@@ -3,12 +3,16 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Location, Appearance } from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
+import { WeatherService } from 'src/shared/services/weather.service';
+import { weatherApiKey } from 'src/environments/environment';
+import { Stadistic } from 'src/shared/entities/stadistic';
 
 @Component({
   selector: 'app-google-maps',
   templateUrl: './google-maps.component.html',
   styleUrls: ['./google-maps.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  // providers: [WeatherService]
 })
 export class GoogleMapsComponent implements OnInit {
   public appearance = Appearance;
@@ -19,17 +23,18 @@ export class GoogleMapsComponent implements OnInit {
   private directionsService = new google.maps.DirectionsService();
 
   dir: any;
+  location: Location;
+  distance: any;
+  duration: any;
+  temperature: any;
+  stadistics: Stadistic[] = [];
 
-  constructor(private titleService: Title) {
+  constructor(private titleService: Title, private weatherService: WeatherService) {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Home | @angular-material-extensions/google-maps-autocomplete');
-
+    this.titleService.setTitle('Home | Nybble');
     this.zoom = 10;
-    // this.latitude = 52.520008;
-    // this.longitude = 13.404954;
-
     this.setCurrentPosition();
 
   }
@@ -48,20 +53,27 @@ export class GoogleMapsComponent implements OnInit {
     console.log('onAddressSelected: ', result);
   }
 
-  onLocationSelected(location: Location) {
-    console.log('onLocationSelected: ', location);
-    // this.latitude = location.latitude;
-    // this.longitude = location.longitude;
+  searchDirections() {
     this.dir = {
       origin: { lat: this.latitude, lng: this.longitude },
-      destination: { lat: location.latitude, lng: location.longitude },
+      destination: { lat: this.location.latitude, lng: this.location.longitude },
       travelMode: 'DRIVING'
     }
-    const object = {
-
-    }
     this.directionsService.route(this.dir, (response) => {
-      console.log(response);
-    })
+      this.stadistics.push(new Stadistic('Distance to destination', response.routes[0].legs[0].distance.text));
+      this.stadistics.push(new Stadistic('Duration of the trip', response.routes[0].legs[0].duration.text));
+      this.setWeather(this.latitude, this.longitude, true);
+      this.setWeather(this.location.latitude, this.location.longitude, false);
+    });
+  }
+
+  setLocation(location: Location) {
+    this.location = location;
+  }
+  setWeather(latitude: number, longitude: number, isOrigin: boolean) {
+    const location = isOrigin === true ? 'origin' : 'destination';
+    this.weatherService.getWeatherLatLong(latitude, longitude).subscribe(res => {
+      this.stadistics.push(new Stadistic('Temperature at ' + location, res.main.temp));
+    });
   }
 }

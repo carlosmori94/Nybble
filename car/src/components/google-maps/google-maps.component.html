@@ -1,5 +1,12 @@
 <div class="container" fxLayout="column" fxLayoutAlign="center">
-
+  <div class="autocomplete">
+    <h3>Where do you want to go?</h3>
+    <mat-google-maps-autocomplete
+      (onLocationSelected)="setLocation($event)" country="ar" type="address" strictBounds="true"
+      addressLabelText="Destination">
+    </mat-google-maps-autocomplete>
+    <button mat-raised-button (click)="searchDirections()" [disabled]="!location" color="primary">Search</button>
+  </div>
   <div fxFlex>
     <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
       <agm-marker *ngIf="!dir ; else direction" [latitude]="latitude" [longitude]="longitude"></agm-marker>
@@ -9,12 +16,9 @@
       </ng-template>
     </agm-map>
   </div>
-
-  <div fxFlex fxFlexAlign="center" class="autocomplete-container" [ngStyle.xs]="{'min-width.%': 100}"
-    [ngStyle.sm]="{'width.%': 70}">
-    <mat-google-maps-autocomplete (onAddressSelected)="onAddressSelected($event)"
-      (onLocationSelected)="onLocationSelected($event)">
-    </mat-google-maps-autocomplete>
+  <div class="travel-info">
+    <div *ngFor="let item of stadistics">
+      <app-travel-stadistics [title]="item.title" [stadistic]="item.stadistic"></app-travel-stadistics>
+    </div>
   </div>
-
 </div>

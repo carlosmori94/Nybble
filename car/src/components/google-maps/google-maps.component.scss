@@ -1,8 +1,20 @@
 agm-map {
     height: 400px;
   }
-  
-  .autocomplete-container {
-    padding: 1rem 0 1rem 0;
-    width: 50%;
+.autocomplete{
+  color: #3f51b5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mat-google-maps-autocomplete{    
+    width: 20%;
+    padding: 1% 1%;
   }
+  button{
+  }
+}
+.travel-info{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

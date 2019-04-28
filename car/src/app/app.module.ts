@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FlexLayoutModule} from '@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,29 +11,36 @@ import { AgmDirectionModule } from 'agm-direction';   // agm-direction
 import { AgmCoreModule } from '@agm/core';
 import { AngularMaterialModule } from 'src/shared/angular-material/angular-material.module';
 import { CommonModule } from '@angular/common';
+import { DataService } from 'src/shared/services/dataService.service';
+import { WeatherService } from 'src/shared/services/weather.service';
+import { HttpClientModule } from '@angular/common/http';
+import { googleApiKey } from 'src/environments/environment';
+import { TravelStadisticsComponent } from 'src/components/travel-stadistics/travel-stadistics.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    GoogleMapsComponent
+    GoogleMapsComponent,
+    TravelStadisticsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
+    HttpClientModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
     MatGoogleMapsAutocompleteModule,
-    AgmDirectionModule, 
+    AgmDirectionModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAnNue771AtapM0ACIdE9SpzoEojPqhbqk',
+      apiKey: googleApiKey.value,
       libraries: ['places']
     }),
     MatGoogleMapsAutocompleteModule.forRoot()
   ],
-  providers: [],
+  providers: [DataService, WeatherService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

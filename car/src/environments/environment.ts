@@ -5,7 +5,12 @@
 export const environment = {
   production: false
 };
-
+export const weatherApiKey = {
+  value: '4b850085cf7292da03648e79c25b5543'
+}
+export const googleApiKey = {
+  value: 'AIzaSyAnNue771AtapM0ACIdE9SpzoEojPqhbqk'
+}
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
