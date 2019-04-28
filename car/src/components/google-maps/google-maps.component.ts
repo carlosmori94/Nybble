@@ -46,7 +46,7 @@ export class GoogleMapsComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-        this.zoom = 12;
+        this.zoom = 15;
       });
     }
   }
@@ -54,6 +54,8 @@ export class GoogleMapsComponent implements OnInit {
   searchDirections() {
     this.enableSearchSubject.next(false);
     this.spinnerService.setRunning(true);
+    this.setWeather(this.latitude, this.longitude, true);
+    this.setWeather(this.location.latitude, this.location.longitude, false);
     // Creamos payload para consumir PLACES API de Google
     this.dir = {
       origin: { lat: this.latitude, lng: this.longitude },
@@ -64,8 +66,6 @@ export class GoogleMapsComponent implements OnInit {
       // Agrupamos estadisticas
       this.stadistics.push(new Stadistic('Distance to destination', response.routes[0].legs[0].distance.text));
       this.stadistics.push(new Stadistic('Duration of the trip', response.routes[0].legs[0].duration.text));
-      this.setWeather(this.latitude, this.longitude, true);
-      this.setWeather(this.location.latitude, this.location.longitude, false);
       this.spinnerService.setRunning(false);
     });
   }
@@ -84,6 +84,7 @@ export class GoogleMapsComponent implements OnInit {
   clearDirections() {
     this.enableSearchSubject.next(true);
     this.valueLocation = '';
+    this.location = null;
     this.setCurrentPosition();
     this.stadistics = [];
     this.dir = null;

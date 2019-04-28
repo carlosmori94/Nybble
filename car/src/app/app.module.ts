@@ -18,6 +18,8 @@ import { googleApiKey } from 'src/environments/environment';
 import { TravelStadisticsComponent } from 'src/components/travel-stadistics/travel-stadistics.component';
 import { FormsModule } from '@angular/forms';
 import { FarenheitPipe } from 'src/shared/pipes/farenheit.pipe';
+import { CelciusPipe } from 'src/shared/pipes/celcius.pipe';
+import { SharedModule } from 'src/shared/shared.module';
 
 
 @NgModule({
@@ -25,7 +27,6 @@ import { FarenheitPipe } from 'src/shared/pipes/farenheit.pipe';
     AppComponent,
     GoogleMapsComponent,
     TravelStadisticsComponent,
-    FarenheitPipe
   ],
   imports: [
     BrowserModule,
@@ -33,6 +34,7 @@ import { FarenheitPipe } from 'src/shared/pipes/farenheit.pipe';
     CommonModule,
     HttpClientModule,
     FlexLayoutModule,
+    SharedModule,
     BrowserAnimationsModule,
     FormsModule,
     AngularMaterialModule,

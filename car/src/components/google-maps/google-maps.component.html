@@ -1,11 +1,11 @@
 <div class="google-maps" fxLayout="column" fxLayoutAlign="center">
+  <h3>Where do you want to go?</h3>
   <div class="google-maps-autocomplete">
-    <h3>Where do you want to go?</h3>
     <!-- Google Map autocomplete input https://angular-material-extensions.github.io/google-maps-autocomplete/doc/index.html -->
     <mat-form-field>
       <mat-label>Address</mat-label>
       <input matInput matGoogleMapsAutocomplete country="ar" (onLocationSelected)="setLocation($event)"
-        addressLabelText="Destination" [(ngModel)]="valueLocation">
+        addressLabelText="Destination" [readonly]="!enableSearch$ | async" [(ngModel)]="valueLocation">
     </mat-form-field>
     <mat-progress-spinner mode="indeterminate" diameter="30" *ngIf="showSpinner$ | async; else searchButton">
     </mat-progress-spinner>
