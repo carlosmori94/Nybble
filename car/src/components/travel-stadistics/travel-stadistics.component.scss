@@ -2,19 +2,8 @@
     margin: 5%;
     display: flex;
     justify-content: center;
-    &-duration{
-        width: 50%;
-        mat-card{
-            color: #3f51b5;
-            margin: 5%;
-        }
-    }   
-    &-distance{
-        width: 50%;
-        mat-card{
-            color: #3f51b5;
-            margin: 5%;
-        }
-    }   
+    &-card{
+        color: #3f51b5;
+    }
 }
     

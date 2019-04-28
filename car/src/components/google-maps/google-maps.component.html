@@ -1,12 +1,23 @@
-<div class="container" fxLayout="column" fxLayoutAlign="center">
-  <div class="autocomplete">
+<div class="google-maps" fxLayout="column" fxLayoutAlign="center">
+  <div class="google-maps-autocomplete">
     <h3>Where do you want to go?</h3>
-    <mat-google-maps-autocomplete
-      (onLocationSelected)="setLocation($event)" country="ar" type="address" strictBounds="true"
-      addressLabelText="Destination">
-    </mat-google-maps-autocomplete>
-    <button mat-raised-button (click)="searchDirections()" [disabled]="!location" color="primary">Search</button>
+    <!-- Google Map autocomplete input https://angular-material-extensions.github.io/google-maps-autocomplete/doc/index.html -->
+    <mat-form-field>
+      <mat-label>Address</mat-label>
+      <input matInput matGoogleMapsAutocomplete country="ar" (onLocationSelected)="setLocation($event)"
+        addressLabelText="Destination" [(ngModel)]="valueLocation">
+    </mat-form-field>
+    <mat-progress-spinner mode="indeterminate" diameter="30" *ngIf="showSpinner$ | async; else searchButton">
+    </mat-progress-spinner>
+    <ng-template #searchButton>
+      <button #searchButton *ngIf="enableSearch$ | async;else clearSearch" mat-raised-button
+        (click)="searchDirections()" [disabled]="!location" color="primary">Search</button>
+      <ng-template #clearSearch>
+        <button mat-raised-button (click)="clearDirections()" [disabled]="!location" color="warn">Clear</button>
+      </ng-template>
+    </ng-template>
   </div>
+  <!-- Google Map itself https://angular-maps.com/api-docs/agm-core/components/agmmap-->
   <div fxFlex>
     <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
       <agm-marker *ngIf="!dir ; else direction" [latitude]="latitude" [longitude]="longitude"></agm-marker>
@@ -16,9 +27,11 @@
       </ng-template>
     </agm-map>
   </div>
-  <div class="travel-info">
+  <!-- Nested stadistics -->
+  <div class="google-maps-travel-info">
     <div *ngFor="let item of stadistics">
-      <app-travel-stadistics [title]="item.title" [stadistic]="item.stadistic"></app-travel-stadistics>
+      <app-travel-stadistics [title]="item.title" [stadistic]="item.stadistic" [isTemperature]="item.isTemperature">
+      </app-travel-stadistics>
     </div>
   </div>
 </div>

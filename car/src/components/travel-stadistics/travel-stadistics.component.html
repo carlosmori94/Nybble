@@ -1,14 +1,15 @@
 <div class="travel-stadistics">
-  <div class="travel-stadistics-card">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>{{title}}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          {{stadistic}}
-        </p>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  <mat-card class="travel-stadistics-card">
+    <mat-card-header>
+      <mat-card-title>{{title}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{stadistic}}
+      </p>
+      <button *ngIf="isTemperature" mat-raised-button (click)="changeDegreeScale()"
+        color="primary">Change degree
+        scale</button>
+    </mat-card-content>
+  </mat-card>
 </div>

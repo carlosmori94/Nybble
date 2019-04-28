@@ -16,13 +16,16 @@ import { WeatherService } from 'src/shared/services/weather.service';
 import { HttpClientModule } from '@angular/common/http';
 import { googleApiKey } from 'src/environments/environment';
 import { TravelStadisticsComponent } from 'src/components/travel-stadistics/travel-stadistics.component';
+import { FormsModule } from '@angular/forms';
+import { FarenheitPipe } from 'src/shared/pipes/farenheit.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     GoogleMapsComponent,
-    TravelStadisticsComponent
+    TravelStadisticsComponent,
+    FarenheitPipe
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import { TravelStadisticsComponent } from 'src/components/travel-stadistics/trav
     HttpClientModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
+    FormsModule,
     AngularMaterialModule,
     MatGoogleMapsAutocompleteModule,
     AgmDirectionModule,
@@ -40,7 +44,7 @@ import { TravelStadisticsComponent } from 'src/components/travel-stadistics/trav
     }),
     MatGoogleMapsAutocompleteModule.forRoot()
   ],
-  providers: [DataService, WeatherService],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
