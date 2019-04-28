@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ButtonActions } from 'src/shared/enums/button-actions.enum';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-export interface Food {
-  value: string;
+export interface Plane {
+  value: number;
   viewValue: string;
 }
 
@@ -17,16 +17,16 @@ export class TripInformationComponent implements OnInit {
   private checked = true;
   private action: ButtonActions;
   private profileForm = new FormGroup({
-    resevationNumber: new FormControl(''),
-    lastNameReservation: new FormControl(''),
-    ship: new FormControl(''),
-    date: new FormControl(new Date()),
+    resevationNumber: new FormControl('', Validators.required),
+    lastNameReservation: new FormControl('', Validators.required),
+    ship: new FormControl('', Validators.required),
+    date: new FormControl(new Date(), Validators.required),
     rememberMe: new FormControl(false),
   });
-  foods: Food[] = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' }
+  planess: Plane[] = [
+    { value: 0, viewValue: 'Boejing 777' },
+    { value: 1, viewValue: 'Boejing 788' },
+    { value: 2, viewValue: 'Raptor' }
   ];
   readonly: boolean;
   constructor() { }
@@ -58,7 +58,6 @@ export class TripInformationComponent implements OnInit {
   }
   private EditReservation() {
     this.readonly = !this.readonly;
-    //this.profileForm.disable();
     if (this.profileForm.get('rememberMe').value) {
       const currentForm = this.profileForm.value;
       localStorage.setItem('form', JSON.stringify(currentForm));
