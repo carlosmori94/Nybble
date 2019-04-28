@@ -23,7 +23,7 @@ export class TripInformationComponent implements OnInit {
     date: new FormControl(new Date(), Validators.required),
     rememberMe: new FormControl(false),
   });
-  planess: Plane[] = [
+  planes: Plane[] = [
     { value: 0, viewValue: 'Boejing 777' },
     { value: 1, viewValue: 'Boejing 788' },
     { value: 2, viewValue: 'Raptor' }
